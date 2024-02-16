@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PalauteLomake</title>
+    <link rel="stylesheet" href="public/stylesheets/palaute.css">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="public/javascripts/validate.js"></script>
+</head>
+<header>
+    <h1>KIRJASTO 10</h1>
+</header>
+<button><a href="mobiilikirjasto.html">PÄÄSIVULLE</a></button>
+<body>
+<form id="myform" method="post" action="">
+    <div id="block1">
+    <p>VALITSE PALUTTEEN TYYPPI:</p>
+    <input type="radio" id="kiitos" name="tyyppi" value="Kiitos">
+    <label for="kiitos">kiitos</label><br>
+    <input type="radio" id="moite" name="tyyppi" value="Moite">
+    <label for="moite">moite</label><br>
+    <input type="radio" id="kysymys" name="tyyppi" value="Kysymys">
+    <label for="kysymys">kysymys</label><br>
+    <input type="radio" id="ehdotus" name="tyyppi" value="Kehitysehdotus">
+    <label for="ehdotus">kehitysehdotus</label><br><br>
+    <label for="palaute" >VIESTI:</label><br>
+    <textarea rows="5" cols="20" id="palaute" name="palaute" maxlength="100">
+    </textarea><br>
+    </div>
+    <div id="block2">
+    <p>YHTEYSTIEDOT:</p>
+<label for="name" >NIMI(pakollinen):</label><br>
+<input type="text" id="name" name="nimi"  placeholder="Nimi tai nimimerkki">
+<br><br>
+<label for="puh" >PUHELINNUMERO:</label><br>
+<input type="text" id="puh" name="puhelin" placeholder="puhelinnumero">
+<br><br>
+<label for="mail" >SÄHKÖPOSTI:</label><br>
+        <input type="email" id="mail" name="email" placeholder="example@something.com"
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+<br><br>
+
+<input type="reset" value="TYHJENNÄ">
+
+<input type="submit" id="laheta" name="laheta" value="LÄHETÄ" onclick="check();sendEmail()">
+    </div>
+    <p id="demo"></p>
+
+</form>
+
+<script>
+  //funktio lomakkeen validointiin
+  function check() {
+
+    var y = document.getElementById('name').value;
+    var x = document.getElementById('puh').value;
+    var z = document.getElementById('palaute').value;
+    var p = document.getElementById('mail').value;
+
+    if (y.length === 0) {
+      alert("Nimi on pakollinen!");
+    }
+    if (z.length === 0) {
+      alert("Viestikenttä pakollinen");
+    }
+    if (isNaN(x) || x.length === 0) {
+      alert("Puhelinnumeroon numeroita, kiitos!");
+
+    }
+
+    if (y.length !== 0 && isNaN(x) === false && z.length !== 0 && x.length !== 0 && p.length !== 0) {
+      alert('Sended!')
+    }
+  }
+
+  function sendEmail() {
+    Email.send({
+      Host: "smtp.gmail.com",
+      Username: "hanna.kaimo2019@gmail.com",
+      Password:"Joulu1990!",
+      To: "hanna.kaimo@yahoo.com",
+      From: "hanna.kaimo2019@gmail.com",
+      Subject: "Sending Email using javascript",
+      Body: "Well that was easy!!"
+    })
+    .then(function (message) {
+      alert("mail sent successfully")
+    });
+    console.log("Sended!")
+  }
+</script>
+</body>
+</html>

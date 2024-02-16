@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Henkilötiedot</title>
+    <script src="public/javascripts/Connection6.js"></script>
+</head>
+<body>
+
+<h1>Henkilötietojen lisäys</h1>
+<form id="myform" method="post">
+
+    <label for="Nimi">Nimi</label><br>
+    <input type="text" id="Nimi" name="Nimi" ><br>
+    <label for="sposti">Sähköpostiosoite</label><br>
+    <input type="email" id="sposti" name="sposti" ><br>
+    <label for="osoite">Katuosoite</label><br>
+    <input type="text" id="osoite" name="Osoite" ><br>
+    <label for="Postinro">Postinumero</label><br>
+    <input type="number" id="Postinro" name="nro" ><br>
+    <label for="paikka">Toimipaikka</label><br>
+    <input type="text" id="paikka" name="ToimiPaikka" ><br>
+    <label for="Tel">Puhelinnumero</label><br>
+    <input type="number" id="Tel" name="Puhelinro" ><br>
+    <div id="locationInfo" class="controls form-inline">
+    </div>
+
+    <input onclick="makeQuery()" type="button" value="Lähetä" id="submit">
+
+    <div id="myform2"><b>Kirja info will be listed here.</b></div>
+
+</form>
+
+<script>
+
+  let json;
+
+function makeQuery() {
+  var Nimi = document.getElementById('Nimi').value;
+  var email = document.getElementById('sposti').value;
+  var osoite = document.getElementById('osoite').value;
+  var pnumero = document.getElementById('Postinro').value;
+  var toimipaikka = document.getElementById('paikka').value;
+  var puhelin = document.getElementById('Tel').value;
+
+  let tiedot = '{"Nimi": "'+ Nimi+ '","Sahkoposti": "' + email+ '" ,"Katuosoite": "'+osoite+ '","   Postinumero": "'+
+      pnumero +'","Katuosoite": "'+toimipaikka+ '","PuhelinNumero": "'+puhelin+"}'"
+
+
+  document.getElementById('myform').innerHTML = tiedot;
+
+  if (Nimi.length === 0) {
+  } else {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+        json = JSON.parse(xmlhttp.responseText);
+        document.getElementById("myform2").innerHTML = xmlhttp.responseText;
+
+          showList(json);
+        } else {
+          document.getElementById('myform2').innerHTML = 'Ei tapahtumatietoja tältä ajalta.';
+
+        }
+      }
+      xmlhttp.open('POST', 'http://localhost:8084/api/Henkilotiedot2'+Nimi, true);
+      xmlhttp.setRequestHeader("Content-type", "application/json");
+      xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+      xmlhttp.send(tiedot);
+    }
+
+}
+</script>
+
+</body>
+</html>
+

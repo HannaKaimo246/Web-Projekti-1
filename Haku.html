@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="public/javascripts/YhteinenConnection.js"></script>
+    <link rel="stylesheet" href="public/stylesheets/style.css">
+    <script>
+      function haku(){
+
+
+        var nimi = document.getElementById('KirjanNimi').value;
+        var id = document.getElementById('KirjaID').value;
+        var ajankohta = document.getElementById('Julkaisuvuosi').value;
+        var kirjoittaja = document.getElementById('KirjanTekija').value;
+
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+              json = JSON.parse(xmlhttp.responseText);
+              //myFunction(resultArr);
+              document.getElementById("myform2").innerHTML = xmlhttp.responseText;
+
+              if (json.numOfRows> 0){ // something found
+                //console.log(json.numOfRows + ", " + json.rows[0].Location_place_name);
+
+              }
+              else {
+                document.getElementById('myform2').innerHTML = '<br/>Ei kirjoja tällä haulla.';
+
+              }
+
+            }
+          };
+          xmlhttp.open('GET', 'http://localhost:8080/api/Kirja?ID=' + id + "&kirjoittaja=" + kirjoittaja + "&KirjanNimi=" + nimi  + "&Julkaisuvuosi=" + ajankohta, true);
+          xmlhttp.send();
+
+      }
+
+    </script>
+</head>
+<header>KIRJASTO 10</header>
+<button><a href="mobiilikirjasto.html">PÄÄSIVULLE</a></button>
+<body>
+<main>
+    <h1>HAE KIRJOJA</h1>
+    </button>
+    <form id="myform" method="post">
+        <label for="KirjaID">ID</label><br>
+        <input type="number" id="KirjaID" name="ID" ><br>
+        <label for="KirjanTekija">Tekijä</label><br>
+        <input type="text" id="KirjanTekija" name="Tekija" ><br>
+        <label for="KirjanNimi">Kirjan_nimi</label><br>
+        <input type="text" id="KirjanNimi" name="Kirjannimi" ><br>
+        <label for="Julkaisuvuosi">Julkaisuvuosi</label><br>
+        <input type="number" id="Julkaisuvuosi" name="Julkaisuvuosi" ><br>
+        <img src="data:image/png;base64,<%= image %>" />
+        <ul id="myform2"><br>
+        </ul>
+        <input onclick="haku()" type="button" id="nappi" value="HAE">
+        <input type="reset" value="TYHJENNÄ">
+    </form>
+</main>
+
+</body>
+
+</html>
+
+
+
+
+
+
+

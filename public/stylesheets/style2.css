@@ -1,0 +1,147 @@
+@media only screen and (min-width: 900px) {
+
+    * {
+        box-sizing: border-box;
+
+    }
+
+    header {
+        background-color: crimson;
+        padding: 20px;
+        text-align: center;
+        font-size: 35px;
+        color: white;
+        border-bottom-style: solid;
+        border-width: 5px;
+    }
+
+    nav {
+        float: right;
+        width: 30%;
+        height: 300px; /* only for demonstration, should be removed */
+        background: white;
+        padding: 20px;
+        font-size: 25px;
+        border-right-style: solid;
+        border-width: 5px;
+        border-right-color: white;
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        font-size: 45px;
+        margin: 0;
+    }
+
+    footer {
+        background-color: #777;
+        padding: 85px;
+        text-align: center;
+        color: white;
+    }
+
+    article {
+
+        float: right;
+        padding: 20px;
+        width: 70%;
+        background-color: white;
+        height: 300px;
+
+    }
+
+    section::after {
+        content: none;
+        display: table;
+        clear: both;
+
+    }
+
+    body {
+        font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        color: #00B7FF;
+    }
+
+
+    footer {
+        background-color: #777;
+        text-align: center;
+        color: white;
+
+    }
+
+
+    img.programming.gif {
+        width: 50px;
+        height: 50px;
+    }
+
+    p {
+        font-size: 15px;
+        color: white;
+        font-weight: bold;
+    }
+
+    #myform, input, h1 {
+
+        text-align: center;
+    }
+
+    #kuva2 {
+        width: 80%;
+        clear: both;
+    }
+
+    /* Style all font awesome icons */
+    .fa {
+        padding: 20px;
+        font-size: 30px;
+        width: 30px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 50%;
+    }
+
+    /* Set a specific color for each brand */
+    /* Facebook */
+    .fa-facebook {
+        background: #3B5998;
+        color: white;
+    }
+
+    /* Twitter */
+    .fa-twitter {
+        background: #55ACEE;
+        color: white;
+    }
+}
+@media only screen and (max-width: 900px) {
+
+
+    #kuva2 {
+        width: 100%;
+    }
+
+
+    nav {
+        display: none;
+        background-color: white;
+    }
+
+    header {
+        background-color: crimson;
+        padding: 20px;
+        text-align: center;
+        font-size: 15px;
+        color: white;
+        border-bottom-style: solid;
+        border-width: 5px;
+    }
+
+}

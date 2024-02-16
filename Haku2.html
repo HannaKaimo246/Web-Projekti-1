@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="public/stylesheets/style.css">
+    <script>
+      function haku(){
+        var nimi = document.getElementById('KirjanNimi').value;
+        var id = document.getElementById('KirjaID').value;
+        var vuosi = document.getElementById('Julkaisuvuosi').value;
+        var tekija = document.getElementById('KirjanTekija').value;
+
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+              json = JSON.parse(xmlhttp.responseText);
+              //myFunction(resultArr);
+              document.getElementById("locationInfo").innerHTML = xmlhttp.responseText;
+              if (json.numOfRows> 0){ // something found
+                //console.log(json.numOfRows + ", " + json.rows[0].Location_place_name);
+               // showList(json);
+              }
+              else {
+                document.getElementById('locationInfo').innerHTML = '<br/>Ei kirjoja tällä haulla.';
+
+              }
+
+            }
+          };
+          xmlhttp.open('GET', 'http://localhost:8080/api/Kirja?Nimi=' + nimi + "&KirjanTekija=" + tekija + "&Julkaisuvuosi=" + vuosi, true);
+          xmlhttp.send();
+
+      }
+
+      function showList(json) {
+        //document.getElementById("locationInfo").innerHTML = "New text!";
+        var divElement = document.getElementById('locationInfo');
+
+        var i;
+        var unOrdered;
+        var listElement, nestedElement, unNestedElement;
+        var string;
+        for (i in json.rows) {
+          // create a form group div
+          unOrdered = document.createElement('ul');
+          unOrdered.setAttribute('class', 'del'); // mark all these dynamically created elements to be "deleted"
+          divElement.appendChild(unOrdered);
+
+          listElement = document.createElement('li');
+          listElement.setAttribute('class', 'del');
+          string = json.rows[i].Name;
+          listElement.innerHTML = string;
+          unOrdered.appendChild(listElement);
+          nestedElement = document.createElement('ul');
+          nestedElement.setAttribute('class', 'del');
+          listElement.appendChild(nestedElement);
+          unNestedElement = document.createElement('li');
+          unNestedElement.setAttribute('class', 'del');
+          string = json.rows[i].Kirjannimi+', '+json.rows[i].Julkaisuvuosi;
+          unNestedElement.innerHTML = string;
+          nestedElement.appendChild(unNestedElement);
+        }
+        // delete submit-button
+        var submitBtn = document.getElementById('submit');
+        var parent  = document.getElementById('wholeContainer');
+        parent.removeChild(submitBtn);
+        // add ok-button
+        okBtn = document.createElement('input');
+        okBtn.setAttribute('type', 'button');
+        okBtn.setAttribute('value', 'Ok');
+        okBtn.setAttribute('id', 'Ok');
+        okBtn.setAttribute('onclick', 'Clear()');
+        parent.appendChild(okBtn);
+      }
+
+    </script>
+</head>
+<header>KIRJASTO 10</header>
+<body>
+<main>
+    <h1>VARAA KIRJOJA</h1>
+    <button type="button" onclick="window.location.href='mobiilikirjasto.html';">PÄÄSIVULLE
+    </button>
+    <form id="myform" method="post">
+
+        <label for="KirjanNimi">Kirjan_nimi</label><br>
+        <input type="text" id="KirjanNimi" name="Kirjannimi" ><br>
+        <label for="Julkaisuvuosi">Julkaisuvuosi</label><br>
+        <input type="number" id="Julkaisuvuosi" name="Julkaisuvuosi" ><br>
+        <label for="KirjanTekija">Tekijä</label><br>
+        <input type="text" id="KirjanTekija" name="Tekija" ><br>
+        <label for="KirjaID">ID</label><br>
+        <input type="number" id="KirjaID" name="ID" ><br>
+        <input onclick="haku()" type="button" id="nappi" value="HAE">
+        <button type="button" onclick="deleteKirja()" id="varaus" value="Varaus">VARAA KIRJA</button>
+        <input type="reset" value="TYHJENNÄ">
+        <div id="myform2"><b>Kirja info will be listed here.</b></div>
+        <div id="locationInfo" class="controls form-inline">
+        </div>
+        <ul id="lista"></ul>
+
+    </form>
+
+</main>
+
+<script src="public/javascripts/Connection5.js" ></script>
+</body>
+
+</html>
+ <script>
+
+   function deleteKirja() {
+
+     let kirja = document.getElementById('locationInfo').style.color="red";
+
+
+
+     express = require('express');
+     var app = express();
+
+     var mysql = require('mysql');
+
+     var cors = require('cors');
+
+     var con = mysql.createConnection({
+       host: "10.114.32.23",
+       user: "HannKaimo",
+       password: "1234",
+       database: "KirjastoTietokanta"
+     });
+     var url = require('url');
+
+     app.use(cors());
+
+     con.connect(function(err) {
+       if (err) throw err;
+       console.log("Connected to MySQL!");
+     });
+
+     var util = require('util'); // for async calls
+// node native promisify
+     const query = util.promisify(con.query).bind(con); // is bind needed?
+
+// parametrien kirjoitustapa selaimessa : http://localhost:8089/api/events?start=2021-01-01&end=2021-11-29
+
+     var server = app.listen(8080, function() {
+       var host = server.address().address
+       var port = server.address().port
+
+       console.log("Example app listening at http://%s:%s", host, port);
+     });
+
+     app.get("/api/Kirja", function(req, res) {
+
+       var q = url.parse(req.url, true).query;
+       //var params = q.start + " " + q.end;
+       //var Julkaisuvuosi = q.start;
+       var Kirjannimi = q.Nimi;
+
+       var string;
+
+       var sql = "DELETE"
+           + " FROM Kirja"
+           + " WHERE Kirja.Kirjannimi= ?" ;
+
+       (async () => { // IIFE (Immediately Invoked Function Expression)
+         try {
+           const rows = await query(sql, [Kirjannimi]);
+           string = JSON.stringify(rows);
+
+           alteredResult = '{"numOfRows":' + rows.length + ',"rows":' + string + '}';
+           res.send(alteredResult);
+
+         } catch (err) {
+           console.log('Database error!' + err);
+         } finally {
+           //conn.end();
+         }
+       })();
+     });
+     var bodyParser = require('body-parser');
+     const res = require('express');
+
+// Create application/x-www-form-urlencoded parser
+     var urlencodedParser = bodyParser.urlencoded({extended: false});
+     app.use(bodyParser.urlencoded({extended: false}));
+     app.use(bodyParser.json()); // for reading JSON
+   }
+
+
+ </script>
+
+
+
+
+

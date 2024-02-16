@@ -1,0 +1,58 @@
+
+
+
+body{
+
+    background-color: #777777;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+header {
+    background-color: crimson;
+    padding: 12px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+
+}
+
+#block1{
+    float: left;
+    margin-left: 500px;
+}
+
+#block2{
+    float: right;
+    margin-right:400px;
+}
+
+img{
+    margin-left: 10px;
+    margin-top: 100px;
+    float: left;
+}
+
+form, h1{
+    text-align: center;
+
+}
+
+h2{
+    margin-left: 710px;
+}
+
+@media only screen and (max-width: 900px) {
+
+  h2{
+      margin-top: 10em;
+      margin-left: 70px;
+  }
+}
+
+
+image{
+    margin-top: 70px;
+}
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kirjautuminen</title>
+    <link rel="stylesheet" href="public/stylesheets/kirjautumisstyle.css">
+</head>
+
+
+<body>
+<header>
+    <h1>KIRJASTO 10</h1>
+</header>
+<button><a href="mobiilikirjasto.html">PÄÄSIVULLE</a></button>
+<img src="Kuvat/books.gif" id="kuva1" alt="logo">
+
+<h2>Kirjaudu sisään:</h2>
+<form id="form" method ="post">
+        <div class="container">
+            <label for="idKirjautuminen"><b>Salasana:</b></label><br>
+            <input type="text" placeholder="Anna Salasana" id="idKirjautuminen" name="id" required><br>
+            <label for="Kayttajanimi"><b>Käyttäjänimi:</b></label><br>
+            <input type="text" placeholder="Anna käyttäjänimi" id="Kayttajanimi"name="nimi" required><br>
+                <br>
+            <button onclick="Tyhjennys()" type="submit">TYHJENNÄ</button>
+            <button type="button" onClick="haku()" value="click here">KIRJAUDU</button>
+        </div>
+</form>
+
+<script type = "text/javascript">
+
+  let kirjautuneet =[
+
+    {
+      password: "Lokki",
+      username: "Hanna"
+
+
+    },
+    {
+      password: "Naula",
+      username: "Pekka"
+
+    },
+    {
+      password: "Mimosa",
+      username: "Janne"
+
+    }
+  ]
+
+  function haku() {
+    var id = document.getElementById('idKirjautuminen').value;
+    var nimi = document.getElementById('Kayttajanimi').value;
+
+   // var sql = "SELECT * FROM 'Kirjautuminen' WHERE 'Kirjautuminen.idKirjautuminen'='" +
+    //  id + "' AND Kirjautuminen.Kayttajanimi ='" + nimi + "'";
+
+    for(let i=0; i< kirjautuneet.length;i++){
+      if(id ===kirjautuneet[i].password && nimi ===kirjautuneet[i].username){
+        console.log(id + "and" + nimi);
+        window.open('Haku2.html');
+        return;
+      }else{
+      }
+    }
+    alert('Väärä käyttäjänimi tai salasana!')
+  }
+</script>
