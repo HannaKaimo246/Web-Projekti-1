@@ -6,7 +6,12 @@ Kirjasto-sivustolla mobiilikirjasto.html-sivu avaa kirjasosivuston etusivun. Etu
 
 <ul>
   <li>Hakemaan aineistoa</li>
-  <li>Katosomaan kirjaston järjestämiä tapahtumia</li>
+  <li>Katsomaan kirjaston järjestämiä tapahtumia</li>
   <li>Kirjautumaan sisään</li>
   <li>Antamaan palautetta</li>
 </ul>
+
+Kirjauduttuaan onnistuneesti sisään asiakas voi varata haluamaansa aineistoa kirjaston valikoimasta
+
+### Jäsenet:
++ Hanna Kaimo
