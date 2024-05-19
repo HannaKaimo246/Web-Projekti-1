@@ -12,7 +12,7 @@ Kirjasto-sivustolla mobiilikirjasto.html-sivu avaa kirjasosivuston etusivun. Etu
   <li>Varaamaan aineistoa</li>
 </ul>
 
-Kirjauduttuaan onnistuneesti sisään asiakas voi varata haluamaansa aineistoa kirjaston valikoimasta
+Kirjauduttuaan onnistuneesti sisään asiakas voi siis varata haluamaansa aineistoa kirjaston valikoimasta
 
 ### Jäsenet:
 + Hanna Kaimo
