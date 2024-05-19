@@ -13,7 +13,7 @@ Kirjasto-sivustolla mobiilikirjasto.html-sivu avaa kirjasosivuston etusivun. Etu
 </ul>
 
 Kirjauduttuaan onnistuneesti sisään asiakas voi siis varata haluamaansa aineistoa kirjaston valikoimasta.
-Käytin projektissa MySQL-tietokantaa
+Käytin projektissa MySQL-tietokantaa. Tein muutaman Unit-testin Jasminella.
 
 ### Jäsenet:
 + Hanna Kaimo
